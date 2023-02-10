@@ -4,7 +4,6 @@
     `npm i postgres-queryparser --save`
     ```
         let pg_parser = require('postgres-queryparser');
-    
     ```
 
 ## How to use
@@ -13,7 +12,8 @@
 
 Let's see about js code:
 ```js
-    let pg_parser = require('postgres-queryparser');
+
+let pg_parser = require('postgres-queryparser');
     
 let query = `UPDATE users SET  users_fname= $1, users_lname= $2, users_sonof= $3, users_address= $4, users_postcode= $5, users_mobile= $6, users_email= $7 WHERE apikeys_id = $8`;
 let values = ["fname" , "lname" , "sonof" , "address" , "postcode" , "9876543210" , "email@domain.com" , "12345" ];
