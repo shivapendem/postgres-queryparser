@@ -7,7 +7,7 @@
     ```
 
 ## How to use
-# Version V 1.1.0:
+# Version V 1.1.1:
     initial method added for parseQuery.
 
 Let's see about js code:
