@@ -1,16 +1,19 @@
-## Description
+# Description
     npm package for simple addons to postgres projects.
-## Installation
-    `npm i postgres-queryparser --save`
-    ```
-        let pg_parser = require('postgres-queryparser');
-    ```
+# Installation
 
-## How to use
-# Version V 1.1.1:
+    npm i postgres-queryparser --save
+    let pg_parser = require('postgres-queryparser');
+    
+
+# How to use
+## Version V 1.1.2:
+    updated to considers array values with escape characters.
+## Version V 1.1.1:
     initial method added for parseQuery.
 
 Let's see about js code:
+
 ```js
 
 let pg_parser = require('postgres-queryparser');

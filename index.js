@@ -6,7 +6,7 @@ function parseQuery(querystring,parametersArray) {
     {
         for(var loopvar=array.length-1;loopvar>=0;loopvar-- )
         {
-            querystring=querystring.split("$"+(loopvar+1)).join("'"+parametersArray[loopvar]+"'");
+            querystring=querystring.split("$"+(loopvar+1)).join("'"+refineescapecharacters(parametersArray[loopvar])+"'");
         }
         return querystring;
     }
@@ -16,4 +16,12 @@ function parseQuery(querystring,parametersArray) {
         return "invalid query details";
     }
 };
+function refineescapecharacters(str){
+   return replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(str,"\'", "\\\'"),"\"", "\\\""),"'", "\\'"),"\\x00", "\\0"),"\\x1A", "\\Z"),"\t", "\\t"),"\r", "\\r"),"\n","\\n"),"\b","\\b");
+}
+function replaceAll(str, match, replacement){
+    //console.log(str);
+   return str.split(match).join(replacement);
+}
+
 module.exports = {parseQuery};

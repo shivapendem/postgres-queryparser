@@ -1,6 +1,6 @@
 {
   "name": "postgres-queryparser",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Post gress Query Parser for getting final query to that is to be executed",
   "main": "index.js",
   "scripts": {
