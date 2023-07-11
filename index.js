@@ -21,7 +21,17 @@ function refineescapecharacters(str){
 }
 function replaceAll(str, match, replacement){
     //console.log(str);
+    if(isNull(str) || isNull(match) || isNull(replacement))
+    {
+        return null;
+    }
    return str.split(match).join(replacement);
+}
+function isNull(data) {
+    if ((data === null) || (typeof data === 'undefined')) {
+        return true;
+    }
+    return false;
 }
 
 module.exports = {parseQuery};

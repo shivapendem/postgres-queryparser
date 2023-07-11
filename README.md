@@ -7,6 +7,8 @@
     
 
 # How to use
+## Version V 1.1.3:
+    updated to validate null validation.
 ## Version V 1.1.2:
     updated to considers array values with escape characters.
 ## Version V 1.1.1:
