@@ -8,7 +8,7 @@ function parseQuery(querystring,parametersArray) {
         {
             querystring=querystring.split("$"+(loopvar+1)).join("'"+refineescapecharacters(parametersArray[loopvar])+"'");
         }
-        return querystring;
+        return replaceAll(querystring,"({[[{()}]]})","$");
     }
     else
     {
@@ -17,7 +17,7 @@ function parseQuery(querystring,parametersArray) {
     }
 };
 function refineescapecharacters(str){
-   return replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(str,"\'", "\\\'"),"\"", "\\\""),"'", "\\'"),"\\x00", "\\0"),"\\x1A", "\\Z"),"\t", "\\t"),"\r", "\\r"),"\n","\\n"),"\b","\\b");
+   return replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(replaceAll(str,"$", "({[[{()}]]})"),"\'", "\\\'"),"\"", "\\\""),"'", "\\'"),"\\x00", "\\0"),"\\x1A", "\\Z"),"\t", "\\t"),"\r", "\\r"),"\n","\\n"),"\b","\\b");
 }
 function replaceAll(str, match, replacement){
     //console.log(str);
@@ -25,7 +25,18 @@ function replaceAll(str, match, replacement){
     {
         return null;
     }
-   return str.split(match).join(replacement);
+    if(isString(str))
+    {
+        return str.split(match).join(replacement);
+    }
+    else
+    {
+        return str;
+    }
+
+}
+function isString(value) {
+    return Object.prototype.toString.call(value) === "[object String]";
 }
 function isNull(data) {
     if ((data === null) || (typeof data === 'undefined')) {
