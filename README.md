@@ -5,8 +5,9 @@
     npm i postgres-queryparser --save
     let pg_parser = require('postgres-queryparser');
     
-
 # How to use
+## Version V 1.1.4:
+    updated to validate $ entries in values.
 ## Version V 1.1.3:
     updated to validate null validation.
 ## Version V 1.1.2:
