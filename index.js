@@ -1,12 +1,14 @@
 function parseQuery(querystring,parametersArray) {
 	
 	let array=querystring.split("$");
-	//console.log(array.length,parametersArray.length);
 	if(array.length -1 == parametersArray.length)
 	{
 		for(var loopvar=array.length-1;loopvar>=0;loopvar-- )
 		{
-			querystring=querystring.split("$"+(loopvar+1)).join("'"+refineescapecharacters(parametersArray[loopvar])+"'");
+			if(typeof parametersArray[loopvar] == "object")
+				querystring=querystring.split("$"+(loopvar+1)).join("'"+JSON.stringify(parametersArray[loopvar])+"'");
+			else		
+				querystring=querystring.split("$"+(loopvar+1)).join("'"+refineescapecharacters(parametersArray[loopvar])+"'");
 		}
 		return replaceAll(querystring,"({[[{()}]]})","$");
 	}
@@ -45,4 +47,36 @@ function isNull(data) {
 	return false;
 }
 
-module.exports = {parseQuery};
+function generateQuery(query, args) {
+    const regex = /\$(\d+)/g;
+    let placeholderCount = 0;
+    let match;
+    while ((match = regex.exec(query)) !== null) {
+        placeholderCount++;
+    }
+    if (args.length !== placeholderCount) {
+        return { status: false, message: `Argument validation failed: Expected ${placeholderCount} argument(s), but received ${args.length}.` };
+    }
+    console.log(`Argument validation passed: ${args.length} argument(s) match ${placeholderCount} placeholder(s).`);
+    return { status: true, query: generateQuery(query, args) };
+}
+
+function generateQuery(query, args) {
+    let resolvedQuery = query;
+    const regex = /\$(\d+)/g;
+    resolvedQuery = resolvedQuery.replace(regex, (match, index) => {
+        const paramIndex = parseInt(index, 10) - 1; // Convert to 0-based index
+        let value = args[paramIndex];
+        if (typeof value === 'object' && value !== null) {
+            value = `'${JSON.stringify(value)}'`;
+        } else if (Array.isArray(value)) {
+            value = `'{${value.join(',')}}'`;
+        } else if (typeof value === 'string') {
+            value = `'${value.replace(/'/g, "''")}'`;
+        }
+        return value;
+    });
+    return resolvedQuery;
+}
+
+module.exports = {parseQuery, generateQuery};

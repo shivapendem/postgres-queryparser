@@ -6,6 +6,8 @@
     let pg_parser = require('postgres-queryparser');
     
 # How to use
+## Version V 1.1.5:
+    Created new function generateQuery with error validation and query result.
 ## Version V 1.1.4:
     updated to validate $ entries in values.
 ## Version V 1.1.3:
@@ -27,6 +29,9 @@ let values = ["fname" , "lname" , "sonof" , "address" , "postcode" , "9876543210
 
 console.log(pg_parser.parseQuery(query,values));
 //UPDATE users SET  users_fname= 'fname', users_lname= 'lname', users_sonof= 'sonof', users_address= 'address', users_postcode= 'postcode', users_mobile= '9876543210', users_email= 'email@domain.com' WHERE apikeys_id = '12345'
+
+const _generateQuery = pg_parser.generateQuery(query, values);
+console.log('Resolved Query:', _generateQuery);
 
 ```
 
