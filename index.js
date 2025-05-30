@@ -58,10 +58,10 @@ function generateQuery(query, args) {
         return { status: false, message: `Argument validation failed: Expected ${placeholderCount} argument(s), but received ${args.length}.` };
     }
     console.log(`Argument validation passed: ${args.length} argument(s) match ${placeholderCount} placeholder(s).`);
-    return { status: true, query: generateQuery(query, args) };
+    return { status: true, query: parseQueryUpdated(query, args) };
 }
 
-function generateQuery(query, args) {
+function parseQueryUpdated(query, args) {
     let resolvedQuery = query;
     const regex = /\$(\d+)/g;
     resolvedQuery = resolvedQuery.replace(regex, (match, index) => {
